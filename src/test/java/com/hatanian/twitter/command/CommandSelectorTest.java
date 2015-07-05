@@ -59,19 +59,19 @@ public class CommandSelectorTest {
     }
 
     @Test
-    public void shouldSetUserNameInVFollowCommand() {
+    public void shouldSetUserNameInFollowCommand() {
         FollowCommand followCommand = (FollowCommand) passFollowCommand();
         assertThat(followCommand.getUser()).isEqualTo("Charlie");
     }
 
     @Test
-    public void shouldSetFollowedUserNameInVFollowCommand() {
+    public void shouldSetFollowedUserNameInFollowCommand() {
         FollowCommand followCommand = (FollowCommand) passFollowCommand();
         assertThat(followCommand.getFollowedUser()).isEqualTo("Alice");
     }
 
     @Test
-    public void shouldReturnViewWallCommadn() {
+    public void shouldReturnViewWallCommand() {
         Command command = passViewWallCommand();
         assertThat(command).isInstanceOf(ViewWallCommand.class);
     }
