@@ -7,7 +7,7 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MessagesRepositoryTest extends TestUsingMessagesRepository{
+public class MessagesRepositoryTest extends TestUsingPersistence {
 
     @Test
     public void testGetTimeline() throws Exception {

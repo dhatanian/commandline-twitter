@@ -1,5 +1,6 @@
 package com.hatanian.twitter.command;
 
+import com.hatanian.twitter.command.implementations.FollowCommand;
 import com.hatanian.twitter.command.implementations.PostCommand;
 import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
 import org.junit.Test;
@@ -48,6 +49,28 @@ public class CommandSelectorTest {
     public void shouldSetUserNameInViewTimelineCommand() {
         ViewTimelineCommand viewTimelineCommand = (ViewTimelineCommand) passViewTimelineCommand();
         assertThat(viewTimelineCommand.getUser()).isEqualTo("Alice");
+    }
+
+    @Test
+    public void shouldReturnFollowCommand() {
+        Command followCommand = passFollowCommand();
+        assertThat(followCommand).isInstanceOf(FollowCommand.class);
+    }
+
+    @Test
+    public void shouldSetUserNameInVFollowCommand() {
+        FollowCommand followCommand = (FollowCommand) passFollowCommand();
+        assertThat(followCommand.getUser()).isEqualTo("Charlie");
+    }
+
+    @Test
+    public void shouldSetFollowedUserNameInVFollowCommand() {
+        FollowCommand followCommand = (FollowCommand) passFollowCommand();
+        assertThat(followCommand.getFollowedUser()).isEqualTo("Alice");
+    }
+
+    private Command passFollowCommand() {
+        return CommandSelector.selectCommand("Charlie follows Alice");
     }
 
     private Command passPostCommand(String message) {
