@@ -1,6 +1,6 @@
 package com.hatanian.twitter.command;
 
-import com.hatanian.twitter.command.implementations.PostingCommand;
+import com.hatanian.twitter.command.implementations.PostCommand;
 
 import java.io.StringReader;
 import java.util.Date;
@@ -19,7 +19,7 @@ public abstract class CommandSelector {
             }
 
             if (secondWord != null && secondWord.equals("->")) {
-                return new PostingCommand(firstWord, scanner.nextLine().trim(), new Date());
+                return new PostCommand(firstWord, scanner.nextLine().trim(), new Date());
             }
 
             //We throw an unchecked exception since we don't expect the caller to handle it (we do not want to deal with wrong inputs in this exercise)

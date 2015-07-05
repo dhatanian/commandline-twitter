@@ -1,6 +1,6 @@
 package com.hatanian.twitter.command;
 
-import com.hatanian.twitter.command.implementations.PostingCommand;
+import com.hatanian.twitter.command.implementations.PostCommand;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,25 +10,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class CommandSelectorTest {
 
-    private PostingCommand passPostingCommand(String message) {
-        return (PostingCommand) CommandSelector.selectCommand("Alice -> " + message);
+    private PostCommand passPostCommand(String message) {
+        return (PostCommand) CommandSelector.selectCommand("Alice -> " + message);
     }
 
     @Test
-    public void shouldReturnPostingCommand() throws Exception {
-        Command command = passPostingCommand("Message");
-        assertThat(command).isInstanceOf(PostingCommand.class);
+    public void shouldReturnPostCommand() throws Exception {
+        Command command = passPostCommand("Message");
+        assertThat(command).isInstanceOf(PostCommand.class);
     }
 
     @Test
-    public void shouldSetUserNameInPostingCommand() {
-        Command command = passPostingCommand("Message");
+    public void shouldSetUserNameInPostCommand() {
+        Command command = passPostCommand("Message");
         assertThat(command.getUser()).isEqualTo("Alice");
     }
 
     @Test
-    public void shouldSetMessageInPostingCommand() {
-        PostingCommand command = passPostingCommand("Message");
+    public void shouldSetMessageInPostCommand() {
+        PostCommand command = passPostCommand("Message");
         assertThat(command.getMessage()).isEqualTo("Message");
     }
 
@@ -36,8 +36,8 @@ public class CommandSelectorTest {
      * This reproduces a bug in early versions of the posting command, where the message would be cut at the first space.
      */
     @Test
-    public void shouldAcceptMessagesWithSpacesInPostingCommand() {
-        PostingCommand command = passPostingCommand("Message with spaces");
+    public void shouldAcceptMessagesWithSpacesInPostCommand() {
+        PostCommand command = passPostCommand("Message with spaces");
         assertThat(command.getMessage()).isEqualTo("Message with spaces");
     }
 }

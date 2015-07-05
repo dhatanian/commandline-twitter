@@ -7,11 +7,11 @@ import com.hatanian.twitter.persistence.MessagesRepository;
 import java.io.PrintStream;
 import java.util.Date;
 
-public class PostingCommand extends Command {
+public class PostCommand extends Command {
     private String message;
     private Date postDate;
 
-    public PostingCommand(String user, String message, Date postDate) {
+    public PostCommand(String user, String message, Date postDate) {
         super(user);
         this.message = message;
         this.postDate = postDate;

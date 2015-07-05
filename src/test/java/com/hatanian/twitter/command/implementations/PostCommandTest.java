@@ -9,11 +9,11 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostingCommandTest extends CommandTest {
+public class PostCommandTest extends CommandTest {
 
     private void runPostingCommand() {
-        PostingCommand postingCommand = new PostingCommand("Alice", "My message", new Date(1436084656162L));
-        postingCommand.run(getConsoleStream());
+        PostCommand postCommand = new PostCommand("Alice", "My message", new Date(1436084656162L));
+        postCommand.run(getConsoleStream());
     }
 
     @Test
