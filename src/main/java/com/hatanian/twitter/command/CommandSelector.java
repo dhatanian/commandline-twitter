@@ -31,7 +31,7 @@ public abstract class CommandSelector {
             }
 
             //Pattern <username> -> <message>
-            if (secondWord != null && secondWord.equals("->")) {
+            if (secondWord.equals("->")) {
                 return new PostCommand(firstWord, scanner.nextLine().trim(), new Date());
             }
 
