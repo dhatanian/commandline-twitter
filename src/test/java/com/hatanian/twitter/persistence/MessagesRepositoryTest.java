@@ -20,6 +20,17 @@ public class MessagesRepositoryTest extends TestUsingPersistence {
     }
 
     @Test
+    public void shouldReturnMessagesOrderedByDecrescentDateInTimeline() {
+        long currentTime = System.currentTimeMillis();
+        Message alicesFirstMessage = new Message("Alice", "Text1", new Date(currentTime - 2000L));
+        Message alicesSecondMessage = new Message("Alice", "Text2", new Date(currentTime - 1000L));
+        MessagesRepository.getMessageList().add(alicesFirstMessage);
+        MessagesRepository.getMessageList().add(alicesSecondMessage);
+
+        assertThat(MessagesRepository.getTimeline("Alice").toArray()).containsExactly(alicesSecondMessage, alicesFirstMessage);
+    }
+
+    @Test
     public void shouldReturnUsersOwnMessagesInWall() {
         Message usersMessage = new Message("Charlie", "Text", new Date());
         MessagesRepository.getMessageList().add(usersMessage);

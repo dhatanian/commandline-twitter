@@ -19,7 +19,7 @@ public abstract class MessagesRepository {
     }
 
     public static Stream<Message> getTimeline(String user) {
-        return messageList.stream().filter(message -> message.getAuthor().equals(user));
+        return messageList.stream().filter(message -> message.getAuthor().equals(user)).sorted(Comparator.comparing(Message::getCreationDate).reversed());
     }
 
     public static Stream<Message> getWall(String user) {
