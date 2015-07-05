@@ -1,9 +1,6 @@
 package com.hatanian.twitter.command;
 
-import com.hatanian.twitter.command.implementations.ExitCommand;
-import com.hatanian.twitter.command.implementations.FollowCommand;
-import com.hatanian.twitter.command.implementations.PostCommand;
-import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
+import com.hatanian.twitter.command.implementations.*;
 
 import java.io.StringReader;
 import java.util.Date;
@@ -38,6 +35,11 @@ public abstract class CommandSelector {
 
             if (secondWord.equals("follows")) {
                 return new FollowCommand(firstWord, scanner.next());
+            }
+
+            //Pattern <username> wall
+            if (secondWord.equals("wall")) {
+                return new ViewWallCommand(firstWord);
             }
 
             //We throw an unchecked exception since we don't expect the caller to handle it (we do not want to deal with wrong inputs in this exercise)

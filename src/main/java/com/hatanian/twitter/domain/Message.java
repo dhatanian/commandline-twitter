@@ -76,8 +76,12 @@ public class Message {
     }
 
     public String asString() {
+        return asString(false);
+    }
 
-        return getText() + " (" + PRETTY_TIME.format(getCreationDate()) + ")";
+    public String asString(boolean showAuthor) {
+        String firstPart = showAuthor ? getAuthor() + " - " : "";
+        return firstPart + getText() + " (" + PRETTY_TIME.format(getCreationDate()) + ")";
     }
 
     private static class LessThanOneSecond extends ResourcesTimeUnit {

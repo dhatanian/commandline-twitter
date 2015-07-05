@@ -3,6 +3,7 @@ package com.hatanian.twitter.command;
 import com.hatanian.twitter.command.implementations.FollowCommand;
 import com.hatanian.twitter.command.implementations.PostCommand;
 import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
+import com.hatanian.twitter.command.implementations.ViewWallCommand;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,6 +68,22 @@ public class CommandSelectorTest {
     public void shouldSetFollowedUserNameInVFollowCommand() {
         FollowCommand followCommand = (FollowCommand) passFollowCommand();
         assertThat(followCommand.getFollowedUser()).isEqualTo("Alice");
+    }
+
+    @Test
+    public void shouldReturnViewWallCommadn() {
+        Command command = passViewWallCommand();
+        assertThat(command).isInstanceOf(ViewWallCommand.class);
+    }
+
+    @Test
+    public void shouldSetFollowedUserNameInViewAllCommand() {
+        ViewWallCommand viewWallCommand = (ViewWallCommand) passViewWallCommand();
+        assertThat(viewWallCommand.getUser()).isEqualTo("Charlie");
+    }
+
+    private Command passViewWallCommand() {
+        return CommandSelector.selectCommand("Charlie wall");
     }
 
     private Command passFollowCommand() {
