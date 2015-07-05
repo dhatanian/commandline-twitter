@@ -4,6 +4,7 @@ import com.hatanian.twitter.domain.Message;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * This class holds all the messages in a static List.
@@ -14,5 +15,9 @@ public abstract class MessagesRepository {
 
     public static List<Message> getMessageList() {
         return messageList;
+    }
+
+    public static Stream<Message> getTimeline(String user) {
+        return messageList.stream().filter(message -> message.getAuthor().equals(user));
     }
 }

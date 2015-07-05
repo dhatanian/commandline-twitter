@@ -1,6 +1,7 @@
 package com.hatanian.twitter.command;
 
 import com.hatanian.twitter.command.implementations.PostCommand;
+import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
 
 import java.io.StringReader;
 import java.util.Date;
@@ -18,6 +19,12 @@ public abstract class CommandSelector {
                 secondWord = scanner.next();
             }
 
+            //Pattern <username>
+            if (secondWord == null) {
+                return new ViewTimelineCommand(firstWord);
+            }
+
+            //Pattern <username> -> <message>
             if (secondWord != null && secondWord.equals("->")) {
                 return new PostCommand(firstWord, scanner.nextLine().trim(), new Date());
             }

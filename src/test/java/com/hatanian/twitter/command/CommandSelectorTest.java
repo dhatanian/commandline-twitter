@@ -1,6 +1,7 @@
 package com.hatanian.twitter.command;
 
 import com.hatanian.twitter.command.implementations.PostCommand;
+import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,10 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Creation date 05/07/15.
  */
 public class CommandSelectorTest {
-
-    private PostCommand passPostCommand(String message) {
-        return (PostCommand) CommandSelector.selectCommand("Alice -> " + message);
-    }
 
     @Test
     public void shouldReturnPostCommand() throws Exception {
@@ -39,5 +36,25 @@ public class CommandSelectorTest {
     public void shouldAcceptMessagesWithSpacesInPostCommand() {
         PostCommand command = passPostCommand("Message with spaces");
         assertThat(command.getMessage()).isEqualTo("Message with spaces");
+    }
+
+    @Test
+    public void shouldReturnViewTimelineCommand() {
+        Command viewTimelineCommand = passViewTimelineCommand();
+        assertThat(viewTimelineCommand).isInstanceOf(ViewTimelineCommand.class);
+    }
+
+    @Test
+    public void shouldSetUserNameInViewTimelineCommand() {
+        ViewTimelineCommand viewTimelineCommand = passViewTimelineCommand();
+        assertThat(viewTimelineCommand.getUser()).isEqualTo("Alice");
+    }
+
+    private PostCommand passPostCommand(String message) {
+        return (PostCommand) CommandSelector.selectCommand("Alice -> " + message);
+    }
+
+    private ViewTimelineCommand passViewTimelineCommand() {
+        return (ViewTimelineCommand) CommandSelector.selectCommand("Alice");
     }
 }
