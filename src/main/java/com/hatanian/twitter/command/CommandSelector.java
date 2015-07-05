@@ -22,7 +22,8 @@ public abstract class CommandSelector {
                 return new PostingCommand(firstWord, scanner.nextLine().trim(), new Date());
             }
 
-            return null;
+            //We throw an unchecked exception since we don't expect the caller to handle it (we do not want to deal with wrong inputs in this exercise)
+            throw new IllegalArgumentException("Unable to parse input : " + userInput);
         }
     }
 }
