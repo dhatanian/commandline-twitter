@@ -33,6 +33,7 @@ public abstract class CommandSelector {
                 return new PostCommand(firstWord, scanner.nextLine().trim(), new Date());
             }
 
+            //Pattern <username1> follows <username2>
             if (secondWord.equals("follows")) {
                 return new FollowCommand(firstWord, scanner.next());
             }
