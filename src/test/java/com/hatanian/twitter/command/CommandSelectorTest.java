@@ -25,7 +25,7 @@ public class CommandSelectorTest {
 
     @Test
     public void shouldSetMessageInPostCommand() {
-        PostCommand command = passPostCommand("Message");
+        PostCommand command = (PostCommand) passPostCommand("Message");
         assertThat(command.getMessage()).isEqualTo("Message");
     }
 
@@ -34,7 +34,7 @@ public class CommandSelectorTest {
      */
     @Test
     public void shouldAcceptMessagesWithSpacesInPostCommand() {
-        PostCommand command = passPostCommand("Message with spaces");
+        PostCommand command = (PostCommand) passPostCommand("Message with spaces");
         assertThat(command.getMessage()).isEqualTo("Message with spaces");
     }
 
@@ -46,15 +46,15 @@ public class CommandSelectorTest {
 
     @Test
     public void shouldSetUserNameInViewTimelineCommand() {
-        ViewTimelineCommand viewTimelineCommand = passViewTimelineCommand();
+        ViewTimelineCommand viewTimelineCommand = (ViewTimelineCommand) passViewTimelineCommand();
         assertThat(viewTimelineCommand.getUser()).isEqualTo("Alice");
     }
 
-    private PostCommand passPostCommand(String message) {
-        return (PostCommand) CommandSelector.selectCommand("Alice -> " + message);
+    private Command passPostCommand(String message) {
+        return CommandSelector.selectCommand("Alice -> " + message);
     }
 
-    private ViewTimelineCommand passViewTimelineCommand() {
-        return (ViewTimelineCommand) CommandSelector.selectCommand("Alice");
+    private Command passViewTimelineCommand() {
+        return CommandSelector.selectCommand("Alice");
     }
 }
