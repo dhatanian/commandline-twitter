@@ -1,5 +1,6 @@
 package com.hatanian.twitter.command;
 
+import com.hatanian.twitter.command.implementations.ExitCommand;
 import com.hatanian.twitter.command.implementations.PostCommand;
 import com.hatanian.twitter.command.implementations.ViewTimelineCommand;
 
@@ -17,6 +18,11 @@ public abstract class CommandSelector {
             String secondWord = null;
             if (scanner.hasNext()) {
                 secondWord = scanner.next();
+            }
+
+            //Special "exit" command
+            if (firstWord.equals("exit")) {
+                return new ExitCommand();
             }
 
             //Pattern <username>

@@ -8,6 +8,7 @@ import java.io.*;
 public class App {
     private static Console console = System.console();
     private static BufferedReader systemInReader;
+    private static boolean exit = false;
 
     static {
         if (console == null) {
@@ -22,11 +23,13 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("Welcome on this Command Line social network !");
-        while (true) {
+        while (!exit) {
             System.out.print("> ");
             String userInput = readLineFromConsole();
             processUserInput(userInput);
         }
+        System.out.println("Thank you, good bye !");
+        System.exit(0);
     }
 
     private static String readLineFromConsole() {
@@ -44,5 +47,9 @@ public class App {
     private static void processUserInput(String userInput) {
         Command command = CommandSelector.selectCommand(userInput);
         command.run(System.out);
+    }
+
+    public static void exit() {
+        exit = true;
     }
 }
