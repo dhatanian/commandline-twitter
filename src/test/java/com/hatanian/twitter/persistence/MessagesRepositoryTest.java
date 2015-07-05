@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MessagesRepositoryTest extends TestUsingPersistence {
 
     @Test
-    public void testGetTimeline() throws Exception {
+    public void shouldReturnUserTimeline() throws Exception {
         Message messageToAlice = new Message("Alice", "Text", new Date());
         Message messageToBob = new Message("Bob", "Text2", new Date());
         MessagesRepository.getMessageList().add(messageToAlice);
