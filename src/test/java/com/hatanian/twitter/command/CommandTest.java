@@ -1,5 +1,6 @@
 package com.hatanian.twitter.command;
 
+import com.hatanian.twitter.persistence.TestUsingMessagesRepository;
 import org.junit.After;
 import org.junit.Before;
 
@@ -7,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
-public abstract class CommandTest {
+public abstract class CommandTest extends TestUsingMessagesRepository {
     private ByteArrayOutputStream byteArrayOutputStream;
     private PrintStream consoleStream;
 
