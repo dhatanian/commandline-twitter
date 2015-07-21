@@ -1,0 +1,30 @@
+## Improvements
+
+- App: Not tested. There’s important logic in there (application flow) that should be tested. 
+- App: Mix of levels of abstractions. E.g. Knows about problems creating a console (BufferedReader, System.out, etc) and also controls application flow.
+- All Console related code should have been isolated in a class (your own Console class). This way you would have had a “home” for all the low level behaviour you have in the App class and would have made your tests easier.  
+- ExitCommand: Unused imports (should be deleted). 
+- ExitCommand: pass “null” to the super class. This is not a good idea since a change in the parent class may make your application to throw a NullPointerException. Use a [NullObject](https://en.wikipedia.org/wiki/Null_Object_pattern) instead.
+- CommandSelector.selectCommand(): Interesting choice of name. Normally this would be a factory, since it implements the Factory Method pattern. Not a bad thing though. Just not very conventional. 
+- CommandSelector: The code would be smaller and possibly more readable using “named” regular expressions, that means, assigning regular expressions to constants explaining what they are. This way, all comments would be gone. 
+- CommandSelectorTest: Tests are testing the state of the commands created. State should not be exposed for tests purpose only. E.g. PostCommand.getMessage() / .getUser(). In cases like that, favour testing for equality, creating a PostCommand in your test (with the expected data) and checking if the returned command is equal to the one you created (using equals() method). 
+- CommandSelector: Violation of SRP. It should not be the responsibility of the CommandSelector to create the Date to add it to the PostCommand. You could defer this decision to a later stage (inside the PostCommand, or even in the Repository). The lesser you expose from a data structure, the better. It reduces the knowledge and coupling between classes. Post date should be created when the actual “post” is created and not when the PostCommand is created. 
+- PostCommand: Should not expose data through getters. 
+- PostCommand: Classic example of Feature Envy and against the “Tell, Don’t Ask” approach to software design. PostCommand should not ask MessageRepository for its data (MessageRepository.getMessageList()) and change its data. This makes your code brittle, exposing that the internal collection is a List. Instead, the PostCommand should “tell” the MessageRepository to store a new Post. MessageRepository.add(new Post(...));
+- MessageRepository: Should not have static method and used as a “hard-wired” dependency in the Commands. That makes it impossible to test the commands in isolation. If you change the repository implementation for a Database version, all your Command tests will break. MessageRepository should be an interface with a concrete “InMemory” implementation, that would be injected in the constructor of each command and mocked in the tests. 
+- PostCommandTest.shouldStoreMessageInRepository(): Bad test. Tests the PostCommand through the real implementation (state) of the MessageRepository. That makes this test very brittle since it relies on outside behaviour (concrete collaborator).
+- PostCommandTest.shouldNotOutputAnythingToConsole(): Bad test. Tests for a side effect that is not visible anywhere. There is no need for a PostCommand to receive a PrintStream in its run() method. That’s definitely a design smell. 
+- FollowCommand and FollowCommandTest: Similar problems to PostCommand and PostCommandTests. 
+- ViewTimelineCommandTest: Relies on real time (System.currentTimeMillis() - 500L) and can fail after a few runs. 
+- Message: Message is a domain concept and should not contain display logic. 
+- MessageTest: Bad tests relying on real time. The way to test it is to abstract time generation in a class like “Clock”. Creating and injecting your own Clock class allows you to mock it in your test and have total control. 
+- Repositories: Why are the repositories abstract when they don’t have any abstract method? Is it only to avoid them to be created? If yes, there are more explicit ways like defining a private constructor. At least this way, your intention is clear. 
+- I would not have the repositories as static classes but I can see why you did that. Static classes make your code harder to test since you cannot mock the static dependencies easily. 
+- TestUsingPersistence: This is a bad smell. Your unit tests should not impact on each other and you should have no need having your tests to inherit from this class. In fact, you should never need this class. When testing a class, all its collaborators should be mocked, mainly when they deal with persistence.  
+- Some test names are too focused on the implementation and not on the business behaviour. E.g. PostCommandTest.shouldStoreMessageInRepository(). In this case, the business behaviour is to store a users post. Storing in a repository (pattern, code related) is a detail of implementation.
+- In a few places, instead of passing primitives around, you should have grouped them in a domain class, like User, Post, etc. Similar to what you did with Message. E.g. PostCommand should receive a Post or Message object and not 3 primitive types (String user, String message, Date postDate). 
+- Be more consist with the language. You need to decide if the domain class is called Post or Message. Your command is called PostCommand. The domain object is Message. The attributes are message and postDate. Pick one.
+- Testing time is tricky. The best way is to create a class (Clock) that is responsible for providing time. This way, you can mock this class on your tests and have it return whatever you need. 
+
+## Considerations
+Tests and overall design of the solution can be significantly improved. Tests are state-based tests, following the Classicist approach. Why not use mocks? Was it a deliberate choice? Also, it doesn’t look like the code was fully test-driven. Maybe some of the tests were written after the code was implemented?!
