@@ -1,6 +1,7 @@
 package com.hatanian.twitter.command;
 
 import com.hatanian.twitter.command.exit.ExitCommand;
+import com.hatanian.twitter.command.exit.ExitCommandFactory;
 import com.hatanian.twitter.command.post.PostCommand;
 import com.hatanian.twitter.command.post.PostCommandFactory;
 import org.junit.Before;
@@ -13,16 +14,20 @@ import static org.mockito.Mockito.when;
 
 public class CommandFactoryTest {
     private PostCommandFactory mockPostCommandFactory;
+    private ExitCommandFactory mockExitCommandFactory;
 
     @Before
     public void setUp() throws Exception {
         mockPostCommandFactory = mock(PostCommandFactory.class);
+        mockExitCommandFactory = mock(ExitCommandFactory.class);
     }
 
     @Test
     public void shouldReturnExitCommand() throws Exception {
+        ExitCommand mockExitCommand = mock(ExitCommand.class);
+        when(mockExitCommandFactory.buildExitCommand()).thenReturn(mockExitCommand);
         Command command = passCommand("exit");
-        assertThat(command).isInstanceOf(ExitCommand.class);
+        assertThat(command).isEqualTo(mockExitCommand);
     }
 
     @Test
@@ -34,7 +39,7 @@ public class CommandFactoryTest {
     }
 
     private Command passCommand(String userInput) {
-        return new CommandFactory(mock(ExitCommand.class), mockPostCommandFactory).buildCommandFromUserInput(userInput);
+        return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory).buildCommandFromUserInput(userInput);
     }
 
 
