@@ -2,7 +2,9 @@ package com.hatanian.twitter.command.exit;
 
 import com.hatanian.twitter.command.Command;
 import com.hatanian.twitter.exit.ExitFlag;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class ExitCommand implements Command {
     private ExitFlag exitFlag;
 
