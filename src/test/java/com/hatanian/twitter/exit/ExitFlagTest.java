@@ -5,8 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class ExitFlagImplTest {
-    ExitFlag exitFlag = new ExitFlagImpl();
+public class ExitFlagTest {
+    ExitFlag exitFlag = new ExitFlag();
 
     @Test
     public void shouldNotBeRaisedFirst() throws Exception {

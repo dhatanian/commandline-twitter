@@ -1,6 +1,13 @@
 package com.hatanian.twitter.exit;
 
-public interface ExitFlag {
-    public boolean isRaised();
-    public void raise();
+public class ExitFlag {
+    private static boolean RAISED = false;
+
+    public boolean isRaised() {
+        return RAISED;
+    }
+
+    public void raise() {
+        RAISED = true;
+    }
 }

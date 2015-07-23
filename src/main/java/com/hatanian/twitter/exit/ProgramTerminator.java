@@ -1,5 +1,7 @@
 package com.hatanian.twitter.exit;
 
-public interface ProgramTerminator {
-    public void terminateProgram();
+public class ProgramTerminator {
+    public void terminateProgram() {
+        System.exit(0);
+    }
 }

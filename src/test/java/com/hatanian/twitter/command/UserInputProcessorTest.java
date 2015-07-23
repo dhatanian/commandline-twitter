@@ -7,8 +7,8 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
-public class CommandUserInputProcessorImplTest {
-    private CommandUserInputProcessorImpl userInputProcessor;
+public class UserInputProcessorTest {
+    private UserInputProcessor userInputProcessor;
     private CommandFactory commandFactory;
     private Command command;
 
@@ -17,7 +17,7 @@ public class CommandUserInputProcessorImplTest {
         commandFactory = mock(CommandFactory.class);
         command = mock(Command.class);
         when(commandFactory.buildCommandFromUserInput(anyString())).thenReturn(command);
-        userInputProcessor = new CommandUserInputProcessorImpl(commandFactory);
+        userInputProcessor = new UserInputProcessor(commandFactory);
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
-public class AppImplTest {
+public class AppTest {
     ExitFlag mockExitFlag;
     Console mockConsole;
     ProgramTerminator mockProgramTerminator;
@@ -59,7 +59,7 @@ public class AppImplTest {
     }
 
     private void runApp() throws IOException {
-        new AppImpl(mockExitFlag, mockConsole, mockProgramTerminator, userInputProcessor).run();
+        new App(mockExitFlag, mockConsole, mockProgramTerminator, userInputProcessor).run();
     }
 
 }
