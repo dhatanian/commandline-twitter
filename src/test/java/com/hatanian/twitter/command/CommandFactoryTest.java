@@ -52,6 +52,11 @@ public class CommandFactoryTest {
         assertThat(command).isEqualTo(mockViewTimelineCommand);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionWhenNoMatchIsFound() {
+        passCommand("a b");
+    }
+
     private Command passCommand(String userInput) {
         return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory, mockViewTimelineCommandFactory).buildCommandFromUserInput(userInput);
     }
