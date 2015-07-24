@@ -4,9 +4,13 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class PostContent {
-    private String content;
+    private String value;
 
-    public PostContent(String content) {
-        this.content = content;
+    public PostContent(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

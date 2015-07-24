@@ -4,22 +4,28 @@ import com.hatanian.twitter.command.exit.ExitCommand;
 import com.hatanian.twitter.command.exit.ExitCommandFactory;
 import com.hatanian.twitter.command.post.PostCommand;
 import com.hatanian.twitter.command.post.PostCommandFactory;
+import com.hatanian.twitter.command.viewtimeline.ViewTimelineCommand;
+import com.hatanian.twitter.command.viewtimeline.ViewTimelineCommandFactory;
+import com.hatanian.twitter.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CommandFactoryTest {
     private PostCommandFactory mockPostCommandFactory;
     private ExitCommandFactory mockExitCommandFactory;
+    private ViewTimelineCommandFactory mockViewTimelineCommandFactory;
 
     @Before
     public void setUp() throws Exception {
         mockPostCommandFactory = mock(PostCommandFactory.class);
         mockExitCommandFactory = mock(ExitCommandFactory.class);
+        mockViewTimelineCommandFactory = mock(ViewTimelineCommandFactory.class);
     }
 
     @Test
@@ -38,8 +44,16 @@ public class CommandFactoryTest {
         assertThat(command).isEqualTo(mockPostCommand);
     }
 
+    @Test
+    public void shouldReturnViewTimelineCommand() throws Exception {
+        ViewTimelineCommand mockViewTimelineCommand = mock(ViewTimelineCommand.class);
+        when(mockViewTimelineCommandFactory.buildViewTimelineCommand(eq(new User("Alice")))).thenReturn(mockViewTimelineCommand);
+        Command command = passCommand("Alice");
+        assertThat(command).isEqualTo(mockViewTimelineCommand);
+    }
+
     private Command passCommand(String userInput) {
-        return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory).buildCommandFromUserInput(userInput);
+        return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory, mockViewTimelineCommandFactory).buildCommandFromUserInput(userInput);
     }
 
 

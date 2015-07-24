@@ -5,9 +5,11 @@ import com.google.inject.Provides;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.console.InputStreamConsoleImpl;
 import com.hatanian.twitter.console.JavaIOConsoleImpl;
-import com.hatanian.twitter.exit.ExitFlag;
-import com.hatanian.twitter.exit.ProgramTerminator;
-import com.hatanian.twitter.persistence.PostRepository;
+import com.hatanian.twitter.output.Output;
+import com.hatanian.twitter.output.PostFormatter;
+import com.hatanian.twitter.output.TimeFormatter;
+
+import java.time.Clock;
 
 public class GuiceModule extends AbstractModule {
     @Override
@@ -22,5 +24,15 @@ public class GuiceModule extends AbstractModule {
         } else {
             return new JavaIOConsoleImpl();
         }
+    }
+
+    @Provides
+    Output getOutput() {
+        return new Output(System.out, new PostFormatter(new TimeFormatter()));
+    }
+
+    @Provides
+    Clock getClock() {
+        return Clock.systemDefaultZone();
     }
 }
