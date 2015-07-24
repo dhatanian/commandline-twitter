@@ -17,12 +17,7 @@ public class GuiceRunner {
         if (injector == null) {
             injector = Guice.createInjector(new GuiceModule());
         }
-        App app = null;
-        try {
-            app = injector.getInstance(App.class);
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+        App app = injector.getInstance(App.class);
         app.run();
     }
 }
