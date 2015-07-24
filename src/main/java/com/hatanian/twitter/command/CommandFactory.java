@@ -14,7 +14,7 @@ public class CommandFactory {
     private PostCommandFactory postCommandFactory;
 
     private final Pattern EXIT_REGEX = Pattern.compile("^exit$");
-    private final Pattern POST_REGEX = Pattern.compile("^(.*) -> (.*)$");
+    private final Pattern POST_REGEX = Pattern.compile("^(\\w+) -> (\\w+)$");
 
     @Inject
     public CommandFactory(ExitCommandFactory exitCommandFactory, PostCommandFactory postCommandFactory) {
