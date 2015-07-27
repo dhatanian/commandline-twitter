@@ -4,9 +4,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hatanian.twitter.App;
 import com.hatanian.twitter.ProgramTerminator;
-import com.hatanian.twitter.persistence.PostsRepository;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.output.Output;
+import com.hatanian.twitter.persistence.PostsRepository;
 import org.junit.Before;
 import org.mockito.InOrder;
 import org.mockito.Mock;
@@ -16,11 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class FeatureTest {
     public static final long EXECUTION_INSTANT = 1437776421000L;
