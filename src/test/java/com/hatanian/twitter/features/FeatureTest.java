@@ -12,6 +12,7 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Spy;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +63,7 @@ public class FeatureTest {
         }
     }
 
-    protected void runApp() {
+    protected void runApp() throws IOException {
         Injector injector = Guice.createInjector(new TestGuiceModule(console, out, programTerminator, clock, postsRepository));
         App app = injector.getInstance(App.class);
         app.run();

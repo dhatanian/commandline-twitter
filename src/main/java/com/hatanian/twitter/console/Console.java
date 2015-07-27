@@ -1,8 +1,7 @@
 package com.hatanian.twitter.console;
 
-public class Console {
+import java.io.IOException;
 
-    public String readLine() {
-        return System.console().readLine();
-    }
+public interface Console {
+    String readLine() throws IOException;
 }

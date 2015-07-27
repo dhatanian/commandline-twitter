@@ -68,7 +68,7 @@ public class AppTest {
         inOrder.verify(mockOutput).println("Thank you, good bye !");
     }
 
-    private void runApp() {
+    private void runApp() throws IOException {
         new App(mockExitFlag, mockOutput, mockProgramTerminator, mockUserInputProcessor, mockConsole).run();
     }
 

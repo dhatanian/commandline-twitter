@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.output.Output;
 
+import java.io.IOException;
+
 
 public class App {
     private ExitFlag exitFlag;
@@ -21,7 +23,7 @@ public class App {
         this.console = console;
     }
 
-    public void run() {
+    public void run() throws IOException {
         output.println("Welcome on this Command Line social network !");
 
         while (!exitFlag.isRaised()) {
