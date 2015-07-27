@@ -1,7 +1,7 @@
 package com.hatanian.twitter.command.viewtimeline;
 
 import com.hatanian.twitter.output.PostFormatter;
-import com.hatanian.twitter.command.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostRepository;
 import com.hatanian.twitter.domain.User;
 import com.hatanian.twitter.output.Output;
 import org.junit.Test;

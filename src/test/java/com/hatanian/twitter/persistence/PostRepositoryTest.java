@@ -1,4 +1,4 @@
-package com.hatanian.twitter.command.persistence;
+package com.hatanian.twitter.persistence;
 
 import com.hatanian.twitter.domain.Post;
 import com.hatanian.twitter.domain.PostContent;

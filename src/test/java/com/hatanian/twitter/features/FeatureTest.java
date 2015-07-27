@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hatanian.twitter.App;
 import com.hatanian.twitter.ProgramTerminator;
-import com.hatanian.twitter.command.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostRepository;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.output.Output;
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package com.hatanian.twitter.command.post;
 
-import com.hatanian.twitter.command.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostRepository;
 import com.hatanian.twitter.domain.PostContent;
 import com.hatanian.twitter.domain.User;
 import org.junit.Test;

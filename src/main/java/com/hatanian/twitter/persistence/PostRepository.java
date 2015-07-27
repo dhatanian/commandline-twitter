@@ -1,4 +1,4 @@
-package com.hatanian.twitter.command.persistence;
+package com.hatanian.twitter.persistence;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
