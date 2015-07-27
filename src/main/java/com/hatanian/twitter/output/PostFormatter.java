@@ -15,4 +15,8 @@ public class PostFormatter {
         return post.getContent().getValue() + " (" + timeFormatter.formatDateAsTimePastSince(post.getCreationDate()) + ")";
     }
 
+    public String formatForWall(Post post) {
+        return post.getAuthor().getId() + " - " + format(post);
+    }
+
 }

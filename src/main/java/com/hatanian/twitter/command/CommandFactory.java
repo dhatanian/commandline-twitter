@@ -2,8 +2,10 @@ package com.hatanian.twitter.command;
 
 import com.google.inject.Inject;
 import com.hatanian.twitter.command.exit.ExitCommandFactory;
+import com.hatanian.twitter.command.follows.FollowsCommandFactory;
 import com.hatanian.twitter.command.post.PostCommandFactory;
 import com.hatanian.twitter.command.viewtimeline.ViewTimelineCommandFactory;
+import com.hatanian.twitter.command.wall.WallCommandFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,17 +14,22 @@ public class CommandFactory {
     private ExitCommandFactory exitCommandFactory;
     private PostCommandFactory postCommandFactory;
     private ViewTimelineCommandFactory viewTimelineCommandFactory;
+    private FollowsCommandFactory followsCommandFactory;
+    private WallCommandFactory wallCommandFactory;
 
     private static final Pattern EXIT_REGEX = Pattern.compile("^exit$");
     private static final Pattern POST_REGEX = Pattern.compile("^(\\w+) -> (.*)$");
     private static final Pattern VIEW_TIMELINE_REGEX = Pattern.compile("^(\\w+)$");
-
+    private static final Pattern FOLLOWS_REGEX = Pattern.compile("^(\\w+) follows (\\w+)$");
+    private static final Pattern WALL_REGEX = Pattern.compile("^(\\w+) wall$");
 
     @Inject
-    public CommandFactory(ExitCommandFactory exitCommandFactory, PostCommandFactory postCommandFactory, ViewTimelineCommandFactory viewTimelineCommandFactory) {
+    public CommandFactory(ExitCommandFactory exitCommandFactory, PostCommandFactory postCommandFactory, ViewTimelineCommandFactory viewTimelineCommandFactory, FollowsCommandFactory followsCommandFactory, WallCommandFactory wallCommandFactory) {
         this.exitCommandFactory = exitCommandFactory;
         this.postCommandFactory = postCommandFactory;
         this.viewTimelineCommandFactory = viewTimelineCommandFactory;
+        this.followsCommandFactory = followsCommandFactory;
+        this.wallCommandFactory = wallCommandFactory;
     }
 
     public Command createCommand(String userInput) {
@@ -40,6 +47,15 @@ public class CommandFactory {
             return viewTimelineCommandFactory.createViewTimelineCommand(viewTimelineMatcher.group(1));
         }
 
+        Matcher followsMatcher = FOLLOWS_REGEX.matcher(userInput);
+        if (followsMatcher.matches()) {
+            return followsCommandFactory.createFollowsCommand(followsMatcher.group(1), followsMatcher.group(2));
+        }
+
+        Matcher wallMatcher = WALL_REGEX.matcher(userInput);
+        if (wallMatcher.matches()) {
+            return wallCommandFactory.createWallCommand(wallMatcher.group(1));
+        }
 
         throw new IllegalArgumentException("Unknown command : " + userInput);
     }

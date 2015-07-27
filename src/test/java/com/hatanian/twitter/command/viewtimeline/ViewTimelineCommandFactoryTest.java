@@ -1,7 +1,7 @@
 package com.hatanian.twitter.command.viewtimeline;
 
 import com.hatanian.twitter.output.PostFormatter;
-import com.hatanian.twitter.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostsRepository;
 import com.hatanian.twitter.domain.User;
 import com.hatanian.twitter.output.Output;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ViewTimelineCommandFactoryTest {
     @Mock
-    PostRepository mockPostRepository;
+    PostsRepository mockPostsRepository;
 
     @Mock
     Output mockOutput;
@@ -24,7 +24,7 @@ public class ViewTimelineCommandFactoryTest {
 
     @Test
     public void shouldCreateViewTimelineCommand() throws Exception {
-        ViewTimelineCommand viewTimelineCommand = new ViewTimelineCommandFactory(mockPostRepository, mockOutput, mockPostFormatter).createViewTimelineCommand("Alice");
-        assertThat(viewTimelineCommand).isEqualTo(new ViewTimelineCommand(mockPostRepository, new User("Alice"), mockOutput, mockPostFormatter));
+        ViewTimelineCommand viewTimelineCommand = new ViewTimelineCommandFactory(mockPostsRepository, mockOutput, mockPostFormatter).createViewTimelineCommand("Alice");
+        assertThat(viewTimelineCommand).isEqualTo(new ViewTimelineCommand(mockPostsRepository, new User("Alice"), mockOutput, mockPostFormatter));
     }
 }

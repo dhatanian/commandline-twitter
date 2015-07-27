@@ -4,7 +4,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.hatanian.twitter.ProgramTerminator;
-import com.hatanian.twitter.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostsRepository;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.output.Output;
 
@@ -16,14 +16,14 @@ public class TestGuiceModule implements Module {
     private final Output out;
     private final ProgramTerminator programTerminator;
     private final ChangingClock clock;
-    private final PostRepository postRepository;
+    private final PostsRepository postsRepository;
 
-    public TestGuiceModule(Console console, Output out, ProgramTerminator programTerminator, ChangingClock clock, PostRepository postRepository) {
+    public TestGuiceModule(Console console, Output out, ProgramTerminator programTerminator, ChangingClock clock, PostsRepository postsRepository) {
         this.console = console;
         this.out = out;
         this.programTerminator = programTerminator;
         this.clock = clock;
-        this.postRepository = postRepository;
+        this.postsRepository = postsRepository;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TestGuiceModule implements Module {
     }
 
     @Provides
-    public PostRepository getPostRepository() {
-        return postRepository;
+    public PostsRepository getPostsRepository() {
+        return postsRepository;
     }
 }

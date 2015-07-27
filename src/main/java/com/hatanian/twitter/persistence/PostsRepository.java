@@ -10,12 +10,12 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Singleton
-public class PostRepository {
+public class PostsRepository {
     List<Post> postList = new LinkedList<>();
     private Clock clock;
 
     @Inject
-    public PostRepository(Clock clock) {
+    public PostsRepository(Clock clock) {
         this.clock = clock;
     }
 

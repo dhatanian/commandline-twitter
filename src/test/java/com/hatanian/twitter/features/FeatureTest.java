@@ -4,17 +4,20 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hatanian.twitter.App;
 import com.hatanian.twitter.ProgramTerminator;
-import com.hatanian.twitter.persistence.PostRepository;
+import com.hatanian.twitter.persistence.PostsRepository;
 import com.hatanian.twitter.console.Console;
 import com.hatanian.twitter.output.Output;
 import org.junit.Before;
 import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.Spy;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -23,12 +26,12 @@ public class FeatureTest {
     public static final long EXECUTION_INSTANT = 1437776421000L;
     @Mock
     Console console;
-    @Mock
-    Output out;
+    @Spy
+    Output out = new Output(System.out);
     @Mock
     ProgramTerminator programTerminator;
     ChangingClock clock = new ChangingClock(EXECUTION_INSTANT);
-    PostRepository postRepository = new PostRepository(clock);
+    PostsRepository postsRepository = new PostsRepository(clock);
     private int lineIndex;
     private List<TestUserInput> userInputList = new LinkedList<>();
     private InOrder inOrder;
@@ -64,7 +67,7 @@ public class FeatureTest {
     }
 
     protected void runApp() {
-        Injector injector = Guice.createInjector(new TestGuiceModule(console, out, programTerminator, clock, postRepository));
+        Injector injector = Guice.createInjector(new TestGuiceModule(console, out, programTerminator, clock, postsRepository));
         App app = injector.getInstance(App.class);
         app.run();
     }

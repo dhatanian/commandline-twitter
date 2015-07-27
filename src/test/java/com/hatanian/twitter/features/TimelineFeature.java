@@ -2,13 +2,9 @@ package com.hatanian.twitter.features;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.concurrent.TimeUnit;
-
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TimelineFeature extends FeatureTest {

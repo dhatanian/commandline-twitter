@@ -1,10 +1,13 @@
 package com.hatanian.twitter.output;
 
+import com.google.inject.Inject;
+
 import java.io.PrintStream;
 
 public class Output {
     private PrintStream printStream;
 
+    @Inject
     public Output(PrintStream printStream) {
         this.printStream = printStream;
     }

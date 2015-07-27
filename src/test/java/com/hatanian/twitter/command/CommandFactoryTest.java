@@ -2,10 +2,14 @@ package com.hatanian.twitter.command;
 
 import com.hatanian.twitter.command.exit.ExitCommand;
 import com.hatanian.twitter.command.exit.ExitCommandFactory;
+import com.hatanian.twitter.command.follows.FollowsCommand;
+import com.hatanian.twitter.command.follows.FollowsCommandFactory;
 import com.hatanian.twitter.command.post.PostCommand;
 import com.hatanian.twitter.command.post.PostCommandFactory;
 import com.hatanian.twitter.command.viewtimeline.ViewTimelineCommand;
 import com.hatanian.twitter.command.viewtimeline.ViewTimelineCommandFactory;
+import com.hatanian.twitter.command.wall.WallCommand;
+import com.hatanian.twitter.command.wall.WallCommandFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -37,6 +41,18 @@ public class CommandFactoryTest {
     @Mock
     ViewTimelineCommand mockViewTimelineCommand;
 
+    @Mock
+    FollowsCommandFactory mockFollowsCommandFactory;
+
+    @Mock
+    FollowsCommand mockFollowsCommand;
+
+    @Mock
+    private WallCommandFactory mockWallCommandFactory;
+
+    @Mock
+    private WallCommand mockWallCommand;
+
 
     @Test
     public void shouldReturnExitCommand() throws Exception {
@@ -66,7 +82,23 @@ public class CommandFactoryTest {
         passCommand("a b");
     }
 
+    @Test
+    public void shouldReturnFollowsCommand() throws Exception {
+        when(mockFollowsCommandFactory.createFollowsCommand(anyString(), anyString())).thenReturn(mockFollowsCommand);
+        Command command = passCommand("Charlie follows Alice");
+        verify(mockFollowsCommandFactory).createFollowsCommand(eq("Charlie"), eq("Alice"));
+        assertThat(command).isEqualTo(mockFollowsCommand);
+    }
+
+    @Test
+    public void shouldReturnWallCommand() throws Exception {
+        when(mockWallCommandFactory.createWallCommand(anyString())).thenReturn(mockWallCommand);
+        Command command = passCommand("Charlie wall");
+        verify(mockWallCommandFactory).createWallCommand(eq("Charlie"));
+        assertThat(command).isEqualTo(mockWallCommand);
+    }
+
     private Command passCommand(String userInput) {
-        return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory, mockViewTimelineCommandFactory).createCommand(userInput);
+        return new CommandFactory(mockExitCommandFactory, mockPostCommandFactory, mockViewTimelineCommandFactory, mockFollowsCommandFactory, mockWallCommandFactory).createCommand(userInput);
     }
 }

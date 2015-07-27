@@ -64,7 +64,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.hatanian.twitter.App</mainClass>
+                            <mainClass>com.hatanian.twitter.GuiceRunner</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

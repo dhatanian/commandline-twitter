@@ -18,34 +18,34 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostRepositoryTest {
+public class PostsRepositoryTest {
     @Mock
     Post mockPost;
 
-    PostRepository postRepository = new PostRepository(Clock.fixed(Instant.ofEpochMilli(1437776421000L), ZoneId.of("UTC")));
+    PostsRepository postsRepository = new PostsRepository(Clock.fixed(Instant.ofEpochMilli(1437776421000L), ZoneId.of("UTC")));
 
     @Test
     public void shouldSavePostInPostList() throws Exception {
         Post post = new Post(new User("Alice"), new PostContent("My message"));
-        postRepository.savePost(post);
-        assertThat(postRepository.postList).containsExactly(post);
+        postsRepository.savePost(post);
+        assertThat(postsRepository.postList).containsExactly(post);
     }
 
     @Test
     public void shouldSetPostCreationDateWhenSaving() throws Exception {
-        postRepository.savePost(mockPost);
+        postsRepository.savePost(mockPost);
         verify(mockPost).setCreationDate(eq(new Date(1437776421000L)));
     }
 
     @Test
     public void shouldReturnUserTimeline() throws Exception {
         Post alicesPost = new Post(new User("Alice"), new PostContent("Text"));
-        postRepository.postList.add(alicesPost);
+        postsRepository.postList.add(alicesPost);
 
         Post bobsPost = new Post(new User("Bob"), new PostContent("Text"));
-        postRepository.postList.add(bobsPost);
+        postsRepository.postList.add(bobsPost);
 
-        assertThat(postRepository.getUserTimeline(new User("Alice")).toArray()).containsExactly(alicesPost);
+        assertThat(postsRepository.getUserTimeline(new User("Alice")).toArray()).containsExactly(alicesPost);
     }
 
     @Test
@@ -55,10 +55,10 @@ public class PostRepositoryTest {
         alicesFirstPost.setCreationDate(new Date(currentTime - 2000));
         Post alicesSecondPost = new Post(new User("Alice"), new PostContent("Text2"));
         alicesSecondPost.setCreationDate(new Date(currentTime - 1000));
-        postRepository.postList.add(alicesFirstPost);
-        postRepository.postList.add(alicesSecondPost);
+        postsRepository.postList.add(alicesFirstPost);
+        postsRepository.postList.add(alicesSecondPost);
 
-        assertThat(postRepository.getUserTimeline(new User("Alice")).toArray()).containsExactly(alicesSecondPost, alicesFirstPost);
+        assertThat(postsRepository.getUserTimeline(new User("Alice")).toArray()).containsExactly(alicesSecondPost, alicesFirstPost);
     }
 
 }
